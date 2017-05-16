@@ -1,0 +1,38 @@
+<!--
+<script type="text/javascript" src = "*" ></script>  * refer jQuery
+<script type="text/javascript" src = "*" ></script>  *refer jQuery Datatable js
+<link rel="stylesheet" type="text/css" href="*">     * refer JQuery Datatable css
+-->
+<script type="text/javascript" src = "~/relativePath/SPCSOMGrid.js" ></script>
+<script type="text/javascript" >
+    $(document).ready(function() {
+        
+        var columnsArray = [
+            {HeaderText: "Title",InternalName: "Title",IsAnchor: true, ColumnType:"Text"},
+            {HeaderText: "Number",InternalName: "ListNumber",IsAnchor: false, ColumnType:"Text"},
+            {HeaderText: "Country",InternalName: "Country",IsAnchor: false, ColumnType:"Text"},
+            {HeaderText: "Modified",InternalName: "Editor",IsAnchor: false, ColumnType:"User"},
+            {HeaderText: "Modified By",InternalName: "Modified",IsAnchor: false, ColumnType:"Date"},
+            {HeaderText: "Created",InternalName: "Author",IsAnchor: false, ColumnType:"User"},
+            {HeaderText: "Created By",InternalName: "Created",IsAnchor: false, ColumnType:"Date"}            
+        
+        ];         
+        //Supports Column Type Lookup, Multiuser as well
+        var camlQuery = "<Where><Geq><FieldRef Name='ID' /><Value Type='Counter'>1</Value></Geq></Where>"; //Sample Caml Query
+        var options = {
+            listName : "ListName",
+            camlQuery : camlQuery,
+            heading : "List Data",
+            columns: columnsArray,
+            href: "/~relativepath/Item.aspx", //needed if a column need to a link, mention the just the relpath if document library is used.
+            dateFormat: "dd-MMM-yyyy",            
+            sortColumn: "SortColumn",
+            SPPaginate: false,    //if FALSE - shall get the data and show a Page Numbers  If TRUE - reduce the rowLimit and clicking next shall get the data from List. Fast Performance Reduce the limit when SPPaginate is TRUE
+            rowLimit: 500         
+        }
+        $("#searchResult").SPCSOMGrid(options);
+    });
+</script>
+<!--Div where the Grid is Populated *Mandatory-->
+<div id="searchResult" style="width: 1000px">
+</div>
